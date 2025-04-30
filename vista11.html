@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosamia - Florería</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- React CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #ffe6ee;
+            overflow-x: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        .header {
+            background-color: #ff85a2;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        .slogan {
+            color: #fff8fb;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+        .nav-link {
+            color: white;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        .nav-link:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        .carrito-icono {
+            color: white;
+            font-size: 1.5rem;
+            margin-left: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .carrito-icono:hover {
+            transform: scale(1.1);
+        }
+        .banner-imagen {
+            position: relative;
+            overflow: hidden;
+            height: 70vh;
+            margin-top: 80px;
+        }
+        .banner-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .sobre-nosotros-frame {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(214, 51, 132, 0.15);
+            padding: 40px;
+            border: 2px solid #ffebf1;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+        }
+        .floating-image {
+            animation: float 6s ease-in-out infinite;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 5px solid white;
+            transform: perspective(1000px) rotateY(15deg);
+        }
+        /* Efectos avanzados para videos */
+        .video-section {
+            background: linear-gradient(to bottom, #fff0f5, #ffe6ee);
+            padding: 60px 0;
+            margin: 50px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .video-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to right, #ff85a2, #ffb6c1, #ff85a2);
+            animation: rainbow 8s linear infinite;
+        }
+        .video-container {
+            margin-bottom: 30px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(255, 133, 162, 0.3);
+            transform: perspective(1000px) rotateY(0deg);
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            z-index: 1;
+            background: white;
+            border: 3px solid white;
+        }
+        .video-container:hover {
+            transform: perspective(1000px) rotateY(15deg) scale(1.05);
+            box-shadow: 0 20px 40px rgba(255, 133, 162, 0.5);
+            z-index: 2;
+        }
+        .video-container video {
+            width: 100%;
+            transition: all 0.6s ease;
+            display: block;
+        }
+        .video-container:hover video {
+            transform: scale(1.03);
+        }
+        .video-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,133,162,0.1) 0%, rgba(255,255,255,0) 60%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .video-container:hover::after {
+            opacity: 1;
+        }
+        .video-title {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff85a2;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 3;
+            width: 80%;
+            text-align: center;
+            opacity: 0.9;
+        }
+        .video-container:hover .video-title {
+            bottom: 20px;
+            transform: translateX(-50%) scale(1.1);
+            opacity: 1;
+        }
+        /* Animaciones */
+        @keyframes float {
+            0%, 100% { transform: perspective(1000px) rotateY(15deg) translateY(0); }
+            50% { transform: perspective(1000px) rotateY(15deg) translateY(-20px); }
+        }
+        @keyframes videoFloat {
+            0% { transform: perspective(1000px) rotateY(0deg) translateY(0); }
+            25% { transform: perspective(1000px) rotateY(2deg) translateY(-10px); }
+            50% { transform: perspective(1000px) rotateY(0deg) translateY(0); }
+            75% { transform: perspective(1000px) rotateY(-2deg) translateY(-5px); }
+            100% { transform: perspective(1000px) rotateY(0deg) translateY(0); }
+        }
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .video-float {
+            animation: videoFloat 8s ease-in-out infinite;
+        }
+        .card-producto {
+            transition: all 0.4s;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+        .card-producto:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 15px 30px rgba(255, 133, 162, 0.4);
+        }
+        footer {
+            background-color: #ff85a2;
+            color: white;
+            padding: 60px 0 30px;
+            position: relative;
+            margin-top: 80px;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23ff85a2" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23ff85a2" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23ff85a2"/></svg>') no-repeat;
+            background-size: cover;
+        }
+        .metodos-pago img {
+            max-height: 60px;
+            margin: 0 15px;
+            transition: all 0.3s;
+        }
+        .metodos-pago img:hover {
+            transform: scale(1.1);
+        }
+        .item-carrito img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Estilos para componentes React */
+        .react-cart-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #ff85a2;
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .react-cart-button:hover {
+            transform: scale(1.1);
+            background-color: #e76f8f;
+        }
+        .react-cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        /* Estilos para redes sociales */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .social-icon {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.2);
+        }
+        .social-icon:nth-child(1) { animation-delay: 0.2s; }
+        .social-icon:nth-child(2) { animation-delay: 0.4s; }
+        .social-icon:nth-child(3) { animation-delay: 0.6s; }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Estilos para páginas internas */
+        .page-container {
+            display: none;
+            padding-top: 100px;
+            min-height: 80vh;
+        }
+        .page-container.active {
+            display: block;
+        }
+        .close-page {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ff85a2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor para componentes React -->
+    <div id="react-root"></div>
+    
+    <!-- Modal de Publicidad -->
+    <div class="modal fade modal-publicidad" id="modalPublicidad" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 overflow-hidden">
+                <button type="button" class="btn btn-cerrar-publicidad" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal-body p-0 position-relative">
+                    <img src="492705513_122127464264766373_3563118344499598635_n (2).jpg" 
+                         alt="Oferta Especial" class="publicidad-img w-100">
+                    <div class="position-absolute bottom-0 start-0 end-0 p-4 text-center text-white" 
+                         style="background: linear-gradient(transparent, rgba(0,0,0,0.8))">
+                        <h1 class="display-4 mb-3">Rosamía</h1>
+                        <p class="lead mb-4">En Rosamía, hacemos que cada detalle cuente. 🎁✨<br> 
+                        Te ayudamos a sorprender con los mejores ramos a un precio increíble,<br>
+                        llenos de belleza y significado. 🌹💕</p>
+                        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                            <button type="button" class="btn btn-outline-light btn-lg px-4" onclick="window.open('tu_catalogo.pdf', '_blank')">
+                                Abrir Catálogo PDF
+                            </button>
+                            <button type="button" class="btn btn-danger btn-lg px-4" onclick="window.open('https://wa.me/51931754214', '_blank')">
+                                <i class="fab fa-whatsapp me-2"></i> Pedir por WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="logo">Rosa Mia</h1>
+                    <p class="slogan">Flores que hablan por ti</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-end align-items-center">
+                        <a href="#" class="nav-link" id="nav-inicio">Inicio</a>
+                        <a href="#" class="nav-link" id="nav-nosotros">Sobre Nosotros</a>
+                        <a href="#" class="nav-link" id="nav-productos">Productos</a>
+                        <div class="carrito-icono" id="carrito-icono">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge bg-danger" id="contador-carrito">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Página de Inicio -->
+    <div id="inicio" class="page-container active">
+        <!-- Banner Principal -->
+        <section class="banner">
+            <div class="container-fluid px-0">
+                <div class="banner-imagen position-relative">
+                    <img src="486350063_122118873296766373_1986679044842714012_n (1).png" 
+                         alt="Rosamía - Flores y arreglos florales" class="img-fluid w-100">
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Videos con efectos especiales -->
+        <section class="video-section">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4" style="color: #ff85a2; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">Nuestros Productos en Video</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="video-container video-float">
+                            <video controls class="w-100"> 
+                                <source src="TikSave.io-7496249258962685239-(1080p).mp4" type="video/mp4">           
+                                Tu navegador no soporta el elemento de video.
+                            </video>
+                            <h4 class="video-title">Box Sun Flower</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="video-container video-float" style="animation-delay: 0.3s;">
+                            <video controls class="w-100">
+                                <source src="TikSave.io_7472465832962968838-hd.mp4" type="video/mp4">
+                                Tu navegador no soporta el elemento de video.
+                            </video>
+                            <h4 class="video-title">Ramo Premium</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="video-container video-float" style="animation-delay: 0.6s;">
+                            <video controls class="w-100">
+                                <source src="TikSave.io_7479095563217145093.mp4" type="video/mp4">
+                                Tu navegador no soporta el elemento de video.
+                            </video>
+                            <h4 class="video-title">Peluches</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Página de Sobre Nosotros -->
+    <div id="nosotros" class="page-container">
+        <div class="container">
+            <span class="close-page" onclick="mostrarPagina('inicio')"><i class="fas fa-times"></i></span>
+            <section class="my-5 py-5 sobre-nosotros-frame">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="floating-content">
+                            <h2 class="mb-4">Sobre Nosotros</h2>
+                            <div class="floating-text">
+                                <p>En Rosamía nos dedicamos a crear arreglos florales únicos que transmiten emociones y alegran los momentos especiales de nuestros clientes.</p>
+                                <p>Fundada en 2025, nuestra floristería se ha convertido en un referente de calidad y creatividad en el diseño floral, combinando tradición e innovación.</p>
+                                <p>Nuestro equipo de floristas profesionales se capacita constantemente para ofrecerte las últimas tendencias en diseño floral.</p>
+                                <p>En Rosamía, hacemos que cada detalle cuente. 🎁✨ Te ayudamos a sorprender con los mejores ramos a un precio increíble, llenos de belleza y significado. 🌹💕 Cada creación está pensada para transmitir amor, alegría y gratitud, haciendo de cada ocasión un recuerdo inolvidable.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="floating-image">
+                            <img src="492705513_122127464264766373_3563118344499598635_n (2).jpg" 
+                                 alt="Floristería Rosamía" class="img-fluid rounded">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Página de Productos -->
+    <div id="productos" class="page-container">
+        <div class="container">
+            <span class="close-page" onclick="mostrarPagina('inicio')"><i class="fas fa-times"></i></span>
+            <main class="my-5">
+                <h2 class="text-center mb-4 display-4" style="color: #ff85a2;">Nuestros Productos</h2>
+                <div class="row">
+                    <!-- Producto 1 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-producto h-100">
+                            <img src="Imagen_de_Ejemplo.jpg" class="card-img-top" alt="Box Sun Flower">
+                            <div class="card-body">
+                                <h5 class="card-title">Box Sun Flower</h5>
+                                <p class="card-text">Hermoso arreglo con girasoles frescos, follaje y tarjeta dedicatoria</p>
+                                <p class="precio">2 Girasoles: S/30 | 3 Girasoles: S/40</p>
+                                <button class="btn btn-primary btn-agregar" data-id="1" data-img="Imagen_de_Ejemplo.jpg">
+                                    <i class="fas fa-cart-plus me-2"></i>Añadir al carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 2 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-producto h-100">
+                            <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                                 class="card-img-top" alt="Ramo de Rosas Rojas">
+                            <div class="card-body">
+                                <h5 class="card-title">Ramo de Rosas Rojas</h5>
+                                <p class="card-text">12 rosas rojas premium con follaje y envoltura elegante</p>
+                                <p class="precio">S/ 120.00</p>
+                                <button class="btn btn-primary btn-agregar" data-id="2" data-img="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                    <i class="fas fa-cart-plus me-2"></i>Añadir al carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 3 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-producto h-100">
+                            <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                                 class="card-img-top" alt="Arreglo de Girasoles">
+                            <div class="card-body">
+                                <h5 class="card-title">Arreglo de Girasoles</h5>
+                                <p class="card-text">5 girasoles frescos con follaje verde en caja decorativa</p>
+                                <p class="precio">S/ 80.00</p>
+                                <button class="btn btn-primary btn-agregar" data-id="3" data-img="https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                    <i class="fas fa-cart-plus me-2"></i>Añadir al carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 4 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-producto h-100">
+                            <img src="https://images.unsplash.com/photo-1616594039964-0a45d7f7efdf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                                 class="card-img-top" alt="Ramo de Tulipanes">
+                            <div class="card-body">
+                                <h5 class="card-title">Ramo de Tulipanes</h5>
+                                <p class="card-text">10 tulipanes frescos en envoltura delicada con follaje</p>
+                                <p class="precio">S/ 130.00</p>
+                                <button class="btn btn-primary btn-agregar" data-id="4" data-img="https://images.unsplash.com/photo-1616594039964-0a45d7f7efdf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                    <i class="fas fa-cart-plus me-2"></i>Añadir al carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 5 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-producto h-100">
+                            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                                 class="card-img-top" alt="Centro de Mesa Floral">
+                            <div class="card-body">
+                                <h5 class="card-title">Centro de Mesa Floral</h5>
+                                <p class="card-text">Combinación de flores de temporada en base de vidrio decorativa</p>
+                                <p class="precio">S/ 180.00</p>
+                                <button class="btn btn-primary btn-agregar" data-id="5" data-img="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                    <i class="fas fa-cart-plus me-2"></i>Añadir al carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 6 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-producto h-100">
+                            <img src="https://images.unsplash.com/photo-1556228578-5a87f1b92e6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                                 class="card-img-top" alt="Arreglo de Orquídeas">
+                            <div class="card-body">
+                                <h5 class="card-title">Arreglo de Orquídeas</h5>
+                                <p class="card-text">Orquídeas blancas en maceta elegante, ideal para regalo</p>
+                                <p class="precio">S/ 200.00</p>
+                                <button class="btn btn-primary btn-agregar" data-id="6" data-img="https://images.unsplash.com/photo-1556228578-5a87f1b92e6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                                    <i class="fas fa-cart-plus me-2"></i>Añadir al carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal del Carrito -->
+    <div class="modal fade" id="modalCarrito" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="fas fa-shopping-cart me-2"></i>Tu Carrito</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="items-carrito" class="mb-3">
+                        <!-- Productos del carrito aparecerán aquí -->
+                        <div class="text-center py-4">
+                            <i class="fas fa-shopping-basket fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">Tu carrito está vacío</p>
+                        </div>
+                    </div>
+                    <div class="total-carrito bg-light p-3 rounded">
+                        <h5 class="mb-0">Total: <span id="total-carrito" class="text-danger">S/ 0.00</span></h5>
+                    </div>
+                    
+                    <!-- Sección de métodos de pago (solo visible cuando hay productos) -->
+                    <div id="metodos-pago" class="mt-4 text-center" style="display: none;">
+                        <h5 class="mb-3">Métodos de Pago</h5>
+                        <div class="d-flex justify-content-center align-items-center metodos-pago">
+                            <div class="text-center me-4">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Yape_logo.svg/1200px-Yape_logo.svg.png" alt="Yape">
+                                <p class="mt-2 mb-1">Yape</p>
+                                <small class="text-muted">931754214</small>
+                            </div>
+                            <div class="text-center">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Banco_de_Cr%C3%A9dito_del_Per%C3%BA_logo.svg/1200px-Banco_de_Cr%C3%A9dito_del_Per%C3%BA_logo.svg.png" alt="BCP">
+                                <p class="mt-2 mb-1">BCP</p>
+                                <small class="text-muted">191-12345678-0-00</small>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p class="text-muted">Después de realizar el pago, envíanos el comprobante por WhatsApp</p>
+                            <a href="https://wa.me/51931754214" target="_blank" class="btn btn-success">
+                                <i class="fab fa-whatsapp me-2"></i> Enviar comprobante
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir Comprando</button>
+                    <button type="button" class="btn btn-danger" id="vaciar-carrito">
+                        <i class="fas fa-trash-alt me-1"></i> Vaciar
+                    </button>
+                    <button type="button" class="btn btn-success" id="pagar-carrito">
+                        <i class="fas fa-credit-card me-1"></i> Pagar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Rosamía</h5>
+                    <p>En Rosamía, hacemos que cada detalle cuente. 🎁✨
+                        Te ayudamos a sorprender con los mejores ramos a un precio increíble, llenos de belleza y significado. 🌹💕</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Jr Julio c Tello 503</p>
+                    <p><i class="fas fa-phone me-2"></i> +51 931754214</p>
+                    <p><i class="fab fa-whatsapp me-2"></i> +51 931754214</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Horario</h5>
+                    <p>Lunes a Viernes: 9am - 7pm</p>
+                    <p>Sábados: 9am - 2pm</p>
+                    <p>Domingos: Cerrado</p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2025 Rosamía</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Tu código JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar modal de publicidad al cargar
+            var publicidadModal = new bootstrap.Modal(document.getElementById('modalPublicidad'));
+            publicidadModal.show();
+            
+            // Variables del carrito
+            let carrito = [];
+            const carritoIcono = document.getElementById('carrito-icono');
+            const contadorCarrito = document.getElementById('contador-carrito');
+            const itemsCarrito = document.getElementById('items-carrito');
+            const totalCarrito = document.getElementById('total-carrito');
+            const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
+            const pagarCarritoBtn = document.getElementById('pagar-carrito');
+            const metodosPago = document.getElementById('metodos-pago');
+            const carritoModal = new bootstrap.Modal(document.getElementById('modalCarrito'));
+            
+            // Evento para abrir el carrito
+            carritoIcono.addEventListener('click', function() {
+                actualizarCarrito();
+                carritoModal.show();
+            });
+            
+            // Evento para agregar productos
+            document.querySelectorAll('.btn-agregar').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const img = this.getAttribute('data-img');
+                    const card = this.closest('.card');
+                    const titulo = card.querySelector('.card-title').textContent;
+                    const precioTexto = card.querySelector('.precio').textContent;
+                    
+                    // Extraer precio numérico
+                    let precio = 0;
+                    const precios = precioTexto.match(/\d+/g);
+                    if (precios && precios.length > 0) {
+                        precio = parseFloat(precios[0]);
+                    }
+                    
+                    // Agregar al carrito
+                    const productoExistente = carrito.find(item => item.id === id);
+                    if (productoExistente) {
+                        productoExistente.cantidad += 1;
+                    } else {
+                        carrito.push({
+                            id: id,
+                            titulo: titulo,
+                            precio: precio,
+                            cantidad: 1,
+                            img: img
+                        });
+                    }
+                    
+                    // Actualizar interfaz
+                    actualizarContadorCarrito();
+                    mostrarNotificacion(`${titulo} añadido al carrito`);
+                });
+            });
+            
+            // Función para actualizar el contador
+            function actualizarContadorCarrito() {
+                const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+                contadorCarrito.textContent = totalItems;
+                
+                // Disparar evento para React
+                const event = new CustomEvent('cartUpdated', { detail: totalItems });
+                document.dispatchEvent(event);
+            }
+            
+            // Función para actualizar el carrito
+            function actualizarCarrito() {
+                itemsCarrito.innerHTML = '';
+                
+                if (carrito.length === 0) {
+                    itemsCarrito.innerHTML = `
+                        <div class="text-center py-4">
+                            <i class="fas fa-shopping-basket fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">Tu carrito está vacío</p>
+                        </div>
+                    `;
+                    totalCarrito.textContent = 'S/ 0.00';
+                    metodosPago.style.display = 'none';
+                    return;
+                }
+                
+                let total = 0;
+                
+                carrito.forEach(item => {
+                    const subtotal = item.precio * item.cantidad;
+                    total += subtotal;
+                    
+                    const itemHTML = `
+                        <div class="item-carrito d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex align-items-center">
+                                <img src="${item.img}" alt="${item.titulo}">
+                                <div>
+                                    <h6>${item.titulo}</h6>
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-sm btn-outline-secondary btn-restar" data-id="${item.id}">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <span class="mx-2">${item.cantidad}</span>
+                                        <button class="btn btn-sm btn-outline-secondary btn-sumar" data-id="${item.id}">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                        <span class="ms-3">S/ ${item.precio.toFixed(2)} c/u</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="fw-bold">S/ ${subtotal.toFixed(2)}</span>
+                                <button class="btn btn-sm btn-outline-danger btn-eliminar ms-2" data-id="${item.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    itemsCarrito.innerHTML += itemHTML;
+                });
+                
+                // Mostrar métodos de pago
+                metodosPago.style.display = 'block';
+                
+                // Agregar eventos a los botones de cantidad
+                document.querySelectorAll('.btn-restar').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        const item = carrito.find(item => item.id === id);
+                        
+                        if (item.cantidad > 1) {
+                            item.cantidad -= 1;
+                        } else {
+                            carrito = carrito.filter(item => item.id !== id);
+                        }
+                        
+                        actualizarContadorCarrito();
+                        actualizarCarrito();
+                    });
+                });
+                
+                document.querySelectorAll('.btn-sumar').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        const item = carrito.find(item => item.id === id);
+                        item.cantidad += 1;
+                        
+                        actualizarContadorCarrito();
+                        actualizarCarrito();
+                    });
+                });
+                
+                document.querySelectorAll('.btn-eliminar').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        carrito = carrito.filter(item => item.id !== id);
+                        
+                        actualizarContadorCarrito();
+                        actualizarCarrito();
+                        mostrarNotificacion('Producto eliminado');
+                    });
+                });
+                
+                totalCarrito.textContent = `S/ ${total.toFixed(2)}`;
+            }
+            
+            // Función para mostrar notificaciones
+            function mostrarNotificacion(mensaje) {
+                const notificacion = document.createElement('div');
+                notificacion.className = 'position-fixed bottom-0 end-0 p-3';
+                notificacion.style.zIndex = '11';
+                
+                notificacion.innerHTML = `
+                    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header bg-primary text-white">
+                            <strong class="me-auto">Rosamía</strong>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            ${mensaje}
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(notificacion);
+                
+                setTimeout(() => {
+                    notificacion.remove();
+                }, 3000);
+            }
+            
+            // Evento para vaciar el carrito
+            vaciarCarritoBtn.addEventListener('click', function() {
+                carrito = [];
+                actualizarContadorCarrito();
+                actualizarCarrito();
+                mostrarNotificacion('Carrito vaciado');
+            });
+            
+            // Evento para pagar
+            pagarCarritoBtn.addEventListener('click', function() {
+                if (carrito.length === 0) {
+                    mostrarNotificacion('Tu carrito está vacío');
+                    return;
+                }
+                
+                mostrarNotificacion('Compra realizada con éxito');
+                carrito = [];
+                actualizarContadorCarrito();
+                actualizarCarrito();
+                carritoModal.hide();
+            });
+
+            // Efecto de movimiento para videos al hacer scroll
+            const videoContainers = document.querySelectorAll('.video-container');
+            
+            function checkVideoPosition() {
+                videoContainers.forEach(container => {
+                    const containerPosition = container.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (containerPosition < screenPosition) {
+                        container.style.opacity = '1';
+                        container.style.transform = 'perspective(1000px) rotateY(0deg) translateY(0)';
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkVideoPosition);
+            checkVideoPosition(); // Ejecutar al cargar la página
+            
+            // Navegación entre páginas
+            document.getElementById('nav-inicio').addEventListener('click', function(e) {
+                e.preventDefault();
+                mostrarPagina('inicio');
+            });
+            
+            document.getElementById('nav-nosotros').addEventListener('click', function(e) {
+                e.preventDefault();
+                mostrarPagina('nosotros');
+            });
+            
+            document.getElementById('nav-productos').addEventListener('click', function(e) {
+                e.preventDefault();
+                mostrarPagina('productos');
+            });
+        });
+        
+        // Función para mostrar páginas
+        function mostrarPagina(idPagina) {
+            // Ocultar todas las páginas
+            document.querySelectorAll('.page-container').forEach(pagina => {
+                pagina.classList.remove('active');
+            });
+            
+            // Mostrar la página seleccionada
+            document.getElementById(idPagina).classList.add('active');
+            
+            // Scroll al inicio
+            window.scrollTo(0, 0);
+        }
+    </script>
+
+    <!-- Código React simplificado (solo el carrito flotante) -->
+    <script type="text/babel">
+        // Componente de Carrito Flotante
+        function FloatingCart() {
+            const [cartCount, setCartCount] = React.useState(0);
+            
+            // Sincronizar con el carrito existente
+            React.useEffect(() => {
+                const handleCartUpdate = (e) => {
+                    setCartCount(e.detail);
+                };
+                
+                document.addEventListener('cartUpdated', handleCartUpdate);
+                
+                // Obtener el valor inicial
+                const initialCount = document.getElementById('contador-carrito').textContent;
+                setCartCount(parseInt(initialCount) || 0);
+                
+                return () => {
+                    document.removeEventListener('cartUpdated', handleCartUpdate);
+                };
+            }, []);
+            
+            const openCart = () => {
+                const modal = new bootstrap.Modal(document.getElementById('modalCarrito'));
+                modal.show();
+            };
+            
+            return (
+                <button className="react-cart-button" onClick={openCart}>
+                    <i className="fas fa-shopping-cart"></i>
+                    {cartCount > 0 && <span className="react-cart-badge">{cartCount}</span>}
+                </button>
+            );
+        }
+        
+        // Componente Principal de React
+        function App() {
+            return <FloatingCart />;
+        }
+        
+        // Renderizar la aplicación React
+        const root = ReactDOM.createRoot(document.getElementById('react-root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
