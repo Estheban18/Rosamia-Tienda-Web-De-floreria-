@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosamia - Florería</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Modal de Publicidad -->
+    <div class="modal fade modal-publicidad" id="modalPublicidad" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 overflow-hidden">
+                <button type="button" class="btn btn-cerrar-publicidad" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal-body p-0 position-relative">
+                    <img src="assets/images/492705513_122127464264766373_3563118344499598635_n (2).jpg"
+                         alt="Oferta Especial" class="publicidad-img w-100">
+                    <div class="position-absolute bottom-0 start-0 end-0 p-4 text-center text-white"
+                         style="background: linear-gradient(transparent, rgba(0,0,0,0.8))">
+                        <h1 class="display-4 mb-3"> 🌹Rosamía</h1>
+                        <p class="lead mb-4">En Rosamía, hacemos que cada detalle cuente. 🎁✨<br>
+                        Te ayudamos a sorprender con los mejores ramos a un precio increíble,<br>
+                        llenos de belleza y significado. 🌹💕</p>
+                        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                            <button type="button" class="btn btn-outline-light btn-lg px-4" onclick="window.open('tu_catalogo.pdf', '_blank')">
+                                Abrir Catálogo PDF
+                            </button>
+                            <button type="button" class="btn btn-danger btn-lg px-4" onclick="window.open('https://wa.me/51931754214', '_blank')">
+                                <i class="fab fa-whatsapp me-2"></i> Pedir por WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 col-9">
+                    <div class="logo-container">
+                        <img src="assets/images/logo_ros.png" alt="Logo Rosamía" class="header-logo">
+                        <div class="social-icons">
+                            <a href="https://www.facebook.com/rosamiadetalleshuanuco" class="social-icon" target="_blank"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/rosamia_detalles_huanuco/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.tiktok.com/@rosamia_hco" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-3">
+                    <!-- Menú para escritorio -->
+                    <div class="desktop-menu d-none d-lg-flex justify-content-end align-items-center">
+                        <a href="#inicio" class="nav-link active" id="nav-inicio-desktop">Inicio</a>
+                        <a href="#nosotros" class="nav-link" id="nav-nosotros-desktop">Sobre Nosotros</a>
+                        <a href="#productos" class="nav-link" id="nav-productos-desktop">Productos</a>
+                        <a href="#clientes" class="nav-link" id="nav-clientes-desktop">Clientes Satisfechos</a>
+                        <a href="#comprar" class="nav-link" id="nav-comprar-desktop">Como Comprar</a>
+                    </div>
+
+                    <!-- Botón de menú móvil -->
+                    <div class="mobile-controls d-flex d-lg-none justify-content-end align-items-center">
+                        <button class="navbar-toggler" type="button" id="mobile-menu-toggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú móvil -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="container py-3">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="mb-0">Menú</h5>
+                <button class="btn-close" id="mobile-menu-close"></button>
+            </div>
+            <div class="mobile-nav">
+                <a href="#inicio" class="mobile-nav-link" id="nav-inicio-mobile">Inicio</a>
+                <a href="#nosotros" class="mobile-nav-link" id="nav-nosotros-mobile">Sobre Nosotros</a>
+                <a href="#productos" class="mobile-nav-link" id="nav-productos-mobile">Productos</a>
+                <a href="#clientes" class="mobile-nav-link" id="nav-clientes-mobile">Clientes Satisfechos</a>
+                <a href="#comprar" class="mobile-nav-link" id="nav-comprar-mobile">Como Comprar</a>
+            </div>
+            <div class="mt-4">
+                <div class="social-icons-mobile">
+                    <a href="https://www.facebook.com/rosamiadetalleshuanuco" class="social-icon" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/rosamia_detalles_huanuco/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@rosamia_hco" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay para el menú móvil -->
+    <div class="menu-overlay" id="menu-overlay"></div>
+
+    <!-- Página de Inicio -->
+    <div id="inicio" class="page-container active">
+        <!-- Banner Principal -->
+        <section class="banner">
+            <div class="banner-imagen">
+                <img src="assets/images/492705513_122127464264766373_3563118344499598635_n (2).jpg"
+                     alt="Rosamía - Detalles que florecen" 
+                     class="img-fluid w-100">
+            </div>
+        </section>
+
+        <!-- Sección de Videos con efectos especiales -->
+        <section class="video-section">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4" style="color: #ff85a2; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">𝐍𝐮𝐞𝐬𝐭𝐫𝐨𝐬 𝐏𝐫𝐨𝐝𝐮𝐜𝐭𝐨𝐬 𝐞𝐧 𝐕𝐢𝐝𝐞𝐨</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="video-container video-float">
+                            <video preload="metadata" controlsList="nodownload" playsinline>
+                                <source src="assets/videos/TikSave.io-7496249258962685239-(1080p).mp4" type="video/mp4">
+                                Tu navegador no soporta videos HTML5.
+                            </video>
+                            <div class="play-button"><i class="fas fa-play"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="video-container video-float" style="animation-delay: 0.3s;">
+                            <video preload="metadata" controlsList="nodownload" playsinline>
+                                <source src="assets/videos/TikSave.io_7472465832962968838-hd.mp4" type="video/mp4">
+                                Tu navegador no soporta videos HTML5.
+                            </video>
+                            <div class="play-button"><i class="fas fa-play"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="video-container video-float" style="animation-delay: 0.6s;">
+                            <video preload="metadata" controlsList="nodownload" playsinline>
+                                <source src="assets/videos/TikSave.io_7479095563217145093.mp4" type="video/mp4">
+                                Tu navegador no soporta videos HTML5.
+                            </video>
+                            <div class="play-button"><i class="fas fa-play"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Página de Sobre Nosotros -->
+    <div id="nosotros" class="page-container">
+        <div class="container">
+            <section class="my-5 py-5 sobre-nosotros-frame">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="floating-content">
+                            <h2 class="mb-4">Sobre Nosotros</h2>
+                            <div class="floating-text">
+                                <p>En Rosamía nos dedicamos a crear arreglos florales únicos que transmiten emociones y alegran los momentos especiales de nuestros clientes.</p>
+                                <p>Fundada en 2025, nuestra floristería se ha convertido en un referente de calidad y creatividad en el diseño floral, combinando tradición e innovación.</p>
+                                <p>Nuestro equipo de floristas profesionales se capacita constantemente para ofrecerte las últimas tendencias en diseño floral.</p>
+                                <p>En Rosamía, hacemos que cada detalle cuente. 🎁✨ Te ayudamos a sorprender con los mejores ramos a un precio increíble, llenos de belleza y significado. 🌹💕 Cada creación está pensada para transmitir amor, alegría y gratitud, haciendo de cada ocasión un recuerdo inolvidable.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="floating-image">
+                            <img src="assets/images/492705513_122127464264766373_3563118344499598635_n (2).jpg"
+                                 alt="Floristería Rosamía" class="img-fluid rounded">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Página de Productos -->
+    <div id="productos" class="page-container">
+        <div class="container">
+            <main class="my-5">
+                <h2 class="text-center mb-4 display-4" style="color: #ff85a2;">Nuestros Productos</h2>
+                <div class="row">
+                    <!-- Producto 1 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-producto h-100">
+                            <img src="assets/images/Ramo Duo.png" class="card-img-top" alt="Box Sun Flower">
+                            <div class="card-body">
+                                <h5 class="card-title">Ramo Duo </h5>
+                                <p class="card-text">1 Girasol  1 Rosa  1Follaje  Lazo Tarjeta Dedicatoria</p>
+                                <p class="precio">S/22  </p>
+                                <div class="text-center">
+                                    <a href="https://wa.me/51931754214?text=Hola%20Rosamía,%20me%20interesa%20el%20Ramo%20Duo%20de%20S/22" class="btn btn-success btn-pedido w-100" target="_blank">
+                                        <i class="fab fa-whatsapp me-2"></i>Hacer pedido
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 2 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-producto h-100">
+                            <img src="assets/images/Box sun flower .png"
+                                 class="card-img-top" alt="Ramo de Rosas Rojas">
+                            <div class="card-body">
+                                <h5 class="card-title">Box Sun Flower</h5>
+                                <p class="card-text">2 Girasoles S/30.00 / 3 Girasoles s/40.00  </p>
+                                <p class="precio"> s/30.00  y s/40.00</p>
+                                <div class="text-center">
+                                    <a href="https://wa.me/51931754214?text=Hola%20Rosamía,%20me%20interesa%20el%20Box%20Sun%20Flower%20de%20S/30-40" class="btn btn-success btn-pedido w-100" target="_blank">
+                                        <i class="fab fa-whatsapp me-2"></i>Hacer pedido
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 3 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-producto h-100">
+                            <img src="assets/images/Ramo 5 Rosas .png"
+                                 class="card-img-top" alt="Arreglo de Girasoles">
+                            <div class="card-body">
+                                <h5 class="card-title">Ramo 5 Rosas </h5>
+                                <p class="card-text">5 Rosas Follaje Lazo + Tarjeta Dedicatoria </p>
+                                <p class="precio">S/ 35.00</p>
+                                <div class="text-center">
+                                    <a href="https://wa.me/51931754214?text=Hola%20Rosamía,%20me%20interesa%20el%20Ramo%205%20Rosas%20de%20S/35" class="btn btn-success btn-pedido w-100" target="_blank">
+                                        <i class="fab fa-whatsapp me-2"></i>Hacer pedido
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 4 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-producto h-100">
+                            <img src="assets/images/Ramo Margarita 40 soles .png"
+                                 class="card-img-top" alt="Ramo de Tulipanes">
+                            <div class="card-body">
+                                <h5 class="card-title">Ramo Margarita</h5>
+                                <p class="card-text">Rosas Margaritas Follaje  Lazo + Tarjeta Dedicatoria</p>
+                                <p class="precio">S/ 40.00</p>
+                                <div class="text-center">
+                                    <a href="https://wa.me/51931754214?text=Hola%20Rosamía,%20me%20interesa%20el%20Ramo%20Margarita%20de%20S/40" class="btn btn-success btn-pedido w-100" target="_blank">
+                                        <i class="fab fa-whatsapp me-2"></i>Hacer pedido
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 5 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-producto h-100">
+                            <img src="assets/images/Ramo Buchon .png"
+                                 class="card-img-top" alt="Centro de Mesa Floral">
+                            <div class="card-body">
+                                <h5 class="card-title">Ramo Buchon</h5>
+                                <p class="card-text">
+                                    Rosas Statice Follaje Mariposa Troquelada Corona Metalica Lazo + Tarjeta Dedicatoria</p>
+                                <p class="precio">S/ 200</p>
+                                <div class="text-center">
+                                    <a href="https://wa.me/51931754214?text=Hola%20Rosamía,%20me%20interesa%20el%20Ramo%20Buchon%20de%20S/200" class="btn btn-success btn-pedido w-100" target="_blank">
+                                        <i class="fab fa-whatsapp me-2"></i>Hacer pedido
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 6 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-producto h-100">
+                            <img src="assets/images/image.png"
+                                 class="card-img-top" alt="Arreglo de Orquídeas">
+                            <div class="card-body">
+                                <h5 class="card-title">Ramo Only</h5>
+                                <p class="card-text">1 Rosa Follaje Lazo + Tarjeta Dedicatoria</p>
+                                <p class="precio">S/15</p>
+                                <div class="text-center">
+                                    <a href="https://wa.me/51931754214?text=Hola%20Rosamía,%20me%20interesa%20el%20Ramo%20Only%20de%20S/15" class="btn btn-success btn-pedido w-100" target="_blank">
+                                        <i class="fab fa-whatsapp me-2"></i>Hacer pedido
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Página de Clientes Satisfechos -->
+    <div id="clientes" class="page-container">
+        <div class="container">
+            <section class="clientes-section">
+                <h2 class="clientes-title">Nuestros Clientes Satisfechos</h2>
+
+                <div class="clientes-container">
+                    <button class="scroll-button left" onclick="scrollClientes('left')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <div class="clientes-scroll" id="clientesScroll">
+                        <!-- Cliente 1 -->
+                        <div class="cliente-card">
+                            <img src="assets/images/485620913_122118198050766373_9139783111623222737_n.jpg"
+                                 alt="Cliente satisfecho" class="cliente-img">
+                            <div class="cliente-info">
+                                <h4 class="cliente-nombre">María González</h4>
+                                <p class="cliente-comentario">"El ramo que pedí para mi madre fue hermoso, llegó a tiempo y fresco. ¡Gracias Rosamía!"</p>
+                                <div class="cliente-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cliente 2 -->
+                        <div class="cliente-card">
+                            <img src="assets/images/Imagen de WhatsApp 2025-04-27 a las 22.45.03_c8e4d734.jpg"
+                                 alt="Cliente satisfecho" class="cliente-img">
+                            <div class="cliente-info">
+                                <h4 class="cliente-nombre">Carlos Mendoza</h4>
+                                <p class="cliente-comentario">"Excelente servicio y atención. Mi novia amó el arreglo floral que le envié."</p>
+                                <div class="cliente-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cliente 3 -->
+                        <div class="cliente-card">
+                            <img src="assets/images/Imagen de WhatsApp 2025-04-27 a las 22.53.20_7ec91767.jpg"
+                                 alt="Cliente satisfecho" class="cliente-img">
+                            <div class="cliente-info">
+                                <h4 class="cliente-nombre">Lucía Fernández</h4>
+                                <p class="cliente-comentario">"Las flores para mi boda fueron perfectas, superaron todas mis expectativas."</p>
+                                <div class="cliente-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cliente 4 -->
+                        <div class="cliente-card">
+                            <img src="assets/images/Imagen de WhatsApp 2025-04-27 a las 22.53.21_1449eda9.jpg"
+                                 alt="Cliente satisfecho" class="cliente-img">
+                            <div class="cliente-info">
+                                <h4 class="cliente-nombre">Roberto Sánchez</h4>
+                                <p class="cliente-comentario">"El servicio de entrega fue puntual y las flores llegaron en perfecto estado."</p>
+                                <div class="cliente-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cliente 5 -->
+                        <div class="cliente-card">
+                            <img src="assets/images/Imagen de WhatsApp 2025-04-27 a las 22.53.21_43aa1ffd.jpg"
+                                 alt="Cliente satisfecho" class="cliente-img">
+                            <div class="cliente-info">
+                                <h4 class="cliente-nombre">Andrea Torres</h4>
+                                <p class="cliente-comentario">"El diseño del ramo fue exactamente como lo pedí, ¡gracias por hacer sonreír a mi mamá!"</p>
+                                <div class="cliente-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="scroll-button right" onclick="scrollClientes('right')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Página de Como Comprar -->
+    <div id="comprar" class="page-container">
+        <div class="container">
+            <section class="como-comprar-section my-5">
+                <div class="container">
+                    <div class="text-center mb-5">
+                        <img src="assets/images/logo_ros.png" alt="Rosamía" class="logo-circle mb-4">
+                        <h2 class="como-comprar-title">¿Cómo realizar tu pedido?</h2>
+                        <p class="lead text-muted">¡Hacer tu pedido es muy fácil! Sigue estos pasos:</p>
+                    </div>
+                    
+                    <!-- Pasos para comprar -->
+                    <div class="pasos-compra mb-5">
+                        <div class="paso-compra">
+                            <div class="paso-numero">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="paso-texto">
+                                <h5>Escoge tu ramo favorito</h5>
+                                <p>Explora nuestra galería de productos y selecciona el que más te guste.</p>
+                            </div>
+                        </div>
+
+                        <div class="paso-compra">
+                            <div class="paso-numero">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                            <div class="paso-texto">
+                                <h5>Envíanos los detalles</h5>
+                                <p>Comparte la imagen del ramo elegido junto con:</p>
+                                <ul class="paso-lista">
+                                    <li>Dirección de entrega completa</li>
+                                    <li>Fecha y hora deseada</li>
+                                    <li>Mensaje para la tarjeta</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="paso-compra">
+                            <div class="paso-numero">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="paso-texto">
+                                <h5>Confirmación de disponibilidad</h5>
+                                <p>Te confirmaremos la disponibilidad y el costo total incluyendo el delivery.</p>
+                            </div>
+                        </div>
+
+                        <!-- Medios de pago con diseño mejorado -->
+                        <div class="medios-pago">
+                            <h3><i class="fas fa-credit-card me-2"></i>MEDIOS DE PAGO</h3>
+                            <div class="metodos-pago">
+                                <div class="metodo-pago-card">
+                                    <img src="assets/images/Imagen de WhatsApp 2025-04-27 a las 22.45.03_c8e4d734.jpg" alt="Yape">
+                                    <div class="metodo-info">
+                                        <h4>Yape</h4>
+                                        <p class="numero-cuenta">931 754 214</p>
+                                        <span class="badge bg-success">Transferencia inmediata</span>
+                                    </div>
+                                </div>
+                                <div class="metodo-pago-card">
+                                    <img src="assets/images/descarga (4).jpeg" alt="BCP">
+                                    <div class="metodo-info">
+                                        <h4>BCP</h4>
+                                        <p class="numero-cuenta">191-12345678-0-00</p>
+                                        <span class="badge bg-primary">Cuenta de ahorros</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="paso-compra">
+                            <div class="paso-numero">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="paso-texto">
+                                <h5>¡Listo! Agendamos tu pedido</h5>
+                                <p>Te enviaremos una confirmación con todos los detalles de tu pedido.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notas importantes -->
+                    <div class="notas-importantes">
+                        <h4 class="text-center"><i class="fas fa-info-circle me-2"></i>Información importante</h4>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-clock me-2"></i>Horario de atención: 9:00 AM - 7:00 PM</li>
+                            <li><i class="fas fa-truck me-2"></i>Delivery disponible en toda la ciudad</li>
+                            <li><i class="fas fa-calendar-alt me-2"></i>Pedidos con 24 horas de anticipación</li>
+                        </ul>
+                    </div>
+
+                    <!-- Botón de WhatsApp -->
+                    <div class="text-center mt-5">
+                        <a href="https://wa.me/51931754214" target="_blank" class="btn btn-success btn-lg">
+                            <i class="fab fa-whatsapp me-2"></i> ¡Haz tu pedido ahora!
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/51931754214" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Rosamía</h5>
+                    <p>En Rosamía, hacemos que cada detalle cuente. 🎁✨
+                        Te ayudamos a sorprender con los mejores ramos a un precio increíble, llenos de belleza y significado. 🌹💕</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Jr Julio c Tello 503</p>
+                    <p><i class="fas fa-phone me-2"></i> +51 931754214</p>
+                    <p><i class="fab fa-whatsapp me-2"></i> +51 931754214</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Horario</h5>
+                    <p>Lunes a Viernes: 9am - 7pm</p>
+                    <p>Sábados: 9am - 2pm</p>
+                    <p>Domingos: Cerrado</p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2025 Rosamía</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript personalizado -->
+    <script src="js/main.js"></script>
+</body>
+</html>
