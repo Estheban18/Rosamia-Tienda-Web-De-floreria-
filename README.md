@@ -37,3 +37,7 @@ El proyecto está organizado de la siguiente manera:
 Para más información, contactar a Rosamía:
 - WhatsApp: +51 931754214
 - Dirección: Jr Julio C Tello 503
+
+
+![image](https://github.com/user-attachments/assets/db525fdc-8f02-4c0d-8371-bafa5593d084)
+
